@@ -15,3 +15,7 @@ npm start -- --url=https://www.youku.com -C=3 -V
 ```sh
 npm start -- -h
 ```
+
+## TODO
+
+- [ ] `npx picture-downloader --url https://www.baidu.com/ --out ~/Downloads/tmp`
