@@ -23,10 +23,11 @@ function error(...args) {
 async function main(args) {
   // console.log('args:', args);
   // const argv = parseArgs(args); console.log('argv:', argv);
-  const { url, concurrency, verbose } = parseArgs(args);
+  const { url, concurrency, verbose, help } = parseArgs(args);
 
-  if (!url) {
-    console.warn(YELLOW + 'Usage: npm start -- --url=https://www.baidu.com/' + EOS);
+  if (!url || help) {
+    console.warn(YELLOW + 'Usage:\n  npm start -- --url=https://www.baidu.com -C=2 -V' + EOS);
+    console.log();
     return;
   }
 
@@ -214,8 +215,10 @@ function parseArgs(args) {
   const MAP = {
     C: { type: TYPES.NUMBER, alias: 'concurrency' },
     V: { type: TYPES.BOOLEAN, alias: 'verbose' },
+    h: { type: TYPES.BOOLEAN, alias: 'help' },
 
     verbose: { type: TYPES.BOOLEAN },
+    help: { type: TYPES.BOOLEAN },
   };
 
   return args.reduce((acc, cur) => {
