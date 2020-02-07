@@ -1,7 +1,7 @@
 {
   "name": "picture-dowloader",
   "version": "1.0.0",
-  "description": "Download pictures from remote url.",
+  "description": "Download pictures from remote url using Node.js.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
