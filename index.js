@@ -88,22 +88,23 @@ async function downloadAllImages(url, srcs, concurrency = 10, verbose = false) {
   //   return Promise.all(chunk);
   // })
 
-  // [[1,2], [3]] => [[() => downloadImg(1), () => downloadImg(2)], [downloadImg(3)]]
+  // [ [1,2], [3] ] => [
+  //   () => Promise.all([downloadImg(1), downloadImg(2)]),
+  //   () => Promise.all([downloadImg(3)]
+  // ]
 
-  const downloadChunks = chunks.map((srcs) => {
-    return srcs.map(src => () => {
+  const downloadChunks = chunks.map(srcs => {
+    return () => Promise.all(srcs.map(src => {
       const fullSrc = assembleFullSrc(url, src);
       const filePath = `./dist/${fullSrc.replace(':', '').replace(/\//g, '')}`;
 
-      return downloadImg(fullSrc, filePath, 2 * 1000, verbose);
-    });
+      // 防止一个图片下载失败阻断其他图片下载
+      return downloadImg(fullSrc, filePath, 2 * 1000, verbose).catch(err => error(err));
+    }));
   });
 
   return downloadChunks.reduce((acc, chunk) => {
-    // 防止一个图片下载失败阻断其他图片下载
-    const promises = chunk.map(func => func().catch(err => error(err)));
-
-    return acc.then(() => Promise.all(promises));
+    return acc.then(() => chunk());
   }, Promise.resolve())
 }
 
