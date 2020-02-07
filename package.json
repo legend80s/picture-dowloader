@@ -1,7 +1,7 @@
 {
-  "name": "pic-collector",
+  "name": "picture-dowloader",
   "version": "1.0.0",
-  "description": "",
+  "description": "Download pictures from remote url.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
