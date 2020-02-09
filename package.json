@@ -1,8 +1,9 @@
 {
-  "name": "picture-dowloader",
+  "name": "dowload-pictures",
   "version": "1.0.0",
   "description": "Download pictures from remote url using Node.js.",
   "main": "index.js",
+  "bin": "index.js",
   "scripts": {
     "start": "node index.js",
     "clean": "rm -rf ./dist",
@@ -13,7 +14,8 @@
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "yargs": "^15.1.0"
   },
   "devDependencies": {
     "git-commit-msg-linter": "^2.3.11"
